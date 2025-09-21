@@ -1,0 +1,15 @@
+.home-page-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;   /* let the container grow */
+  overflow-x: hidden;  /* prevent sideways scrolling */
+  overflow-y: auto;    /* allow vertical scrolling */
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  color: white;
+  padding-top: 6rem; /* space for navbar */
+}

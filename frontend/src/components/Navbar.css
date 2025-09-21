@@ -1,0 +1,34 @@
+.navbar {
+  background-color: rgba(0, 0, 0, 0.7); /* Increased opacity for better visibility */
+  padding: 0.8rem 2rem; /* Reduced padding to make it smaller */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.navbar h1 {
+  color: white; /* Changed color to white for a cleaner look */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern font */
+  font-size: 1.5rem; /* Slightly smaller font size */
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links a {
+  color: #c0c0c0; /* A soft gray for a professional look */
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem; /* Increased size for better readability */
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: white; /* A simple white hover effect */
+}
