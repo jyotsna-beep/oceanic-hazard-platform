@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import UserDashboard from './pages/UserDashboard'; // We'll create this soon
+import UserDashboard from './pages/UserDashboard';
 
 function App() {
   return (

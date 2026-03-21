@@ -4,7 +4,7 @@
   max-width: 750px;
   margin: 40px auto;
   padding: 30px;
-  background: rgba(18, 18, 18, 0.9); /* dark transparent for video bg */
+  background: rgba(18, 18, 18, 0.7); /* dark transparent for video bg */
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
