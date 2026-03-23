@@ -1,0 +1,1527 @@
+{
+  "name": "Coral_Crew",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        320
+      ],
+      "id": "2b9cefac-eaa0-4343-80e0-d8d1a771170c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WvERCjSb-p6B-V3VLQzChWr5M_xibWukwB-ETFK_ZSE",
+          "mode": "list",
+          "cachedResultName": "instagram_10",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WvERCjSb-p6B-V3VLQzChWr5M_xibWukwB-ETFK_ZSE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 395985765,
+          "mode": "list",
+          "cachedResultName": "instagram_flood_dataset_200_detailed_10rows",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WvERCjSb-p6B-V3VLQzChWr5M_xibWukwB-ETFK_ZSE/edit#gid=395985765"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        160
+      ],
+      "id": "d0965c0f-fa6e-40ff-9cea-5124188c6702",
+      "name": "instagram",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "15VgHqFGr5HYlWP8",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "10wgYKOOZEXUOR8JuJc11v5AAb1plqVUSCkmom2v9zEI",
+          "mode": "list",
+          "cachedResultName": "facebook_10",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10wgYKOOZEXUOR8JuJc11v5AAb1plqVUSCkmom2v9zEI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1838512810,
+          "mode": "list",
+          "cachedResultName": "facebook_10",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10wgYKOOZEXUOR8JuJc11v5AAb1plqVUSCkmom2v9zEI/edit#gid=1838512810"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        320
+      ],
+      "id": "cb4429b7-89f2-49ec-93cf-13d9c068a83d",
+      "name": "facebook",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "15VgHqFGr5HYlWP8",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1JNd_dPd_ge6MCuWhrJnQIpb7yG4p04e1wihjlxD5sz4",
+          "mode": "list",
+          "cachedResultName": "twitter_10",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JNd_dPd_ge6MCuWhrJnQIpb7yG4p04e1wihjlxD5sz4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 818697111,
+          "mode": "list",
+          "cachedResultName": "twitter_flood_dataset_200_detailed_10rows",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JNd_dPd_ge6MCuWhrJnQIpb7yG4p04e1wihjlxD5sz4/edit#gid=818697111"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        464
+      ],
+      "id": "5bfcd75c-0aac-4683-9f63-7431045a0f6a",
+      "name": "twitter",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "15VgHqFGr5HYlWP8",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3006e1da-45d1-42e5-a030-6802cad857d6",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "High",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        288
+      ],
+      "id": "0712ad94-99bb-46de-9007-b319f7bcbb61",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an assistant that classifies the severity of social media posts about water-related disasters.\n\nRules for Severity:\n- High: Mentions of deaths, drowning, villages destroyed, evacuations, catastrophic damage.\n- Moderate: Severe flooding, property damage, stranded people, partial evacuations, heavy but not total destruction.\n- Low: Minor flooding, waterlogging, traffic issues, warnings, inconveniences.\n\nTASK:\nClassify the following post text:\n\n{{ $json[\"Caption\"] || $json[\"Tweet Text\"] }}\n\nReturn ONLY valid JSON in this exact format:\n{\n  \"location\":\"{{ $json.location }}\",\n  \"text\": \"{{ $json[\"Caption\"] || $json[\"Tweet Text\"] }}\",\n  \"severity\": \"<High | Moderate | Low>\"\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        288
+      ],
+      "id": "545281b2-085d-49e5-9434-e4b7ab93a540",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        464
+      ],
+      "id": "0e70cc69-044e-4fe8-b548-b0c939885a4c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "SW5vWqaciWr0Sleb",
+          "name": "output"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI assistant that processes water-related hazard JSON objects. Each object contains:\n\n{\n  \"location\": \"{{ $('Merge').item.json.location }}\",\n  \"text\": \"<description of the hazard event>\",\n  \"severity\": \"<Low, Moderate, High>\"\n}\n\n\nTasks:\n\nExtract the location from the input JSON. If missing, use \"Unknown Location\".\n\nClassify the hazard described in \"text\" into one category:\nFlash Flood, River Flood, Urban Flood, Coastal Flood / Storm Surge, Dam Breach Flood, Monsoon Flood, Tsunami, Cyclone/Storm, Tides/Surge, General Hazard.\n\nSuggest short 1–3 line precautionary steps based on the category and severity.\n\nOutput: Return only valid JSON in the format:\n\n{\n  \"location\": \"{{ $('Merge').item.json.location }}\",\n  \"category\": \"<hazard category>\",\n  \"precaution\": \"<short precaution message>\"\n}\n\n\n⚠️ Important: Do not include explanations, examples, or any extra text. Only return JSON.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        272
+      ],
+      "id": "e591763b-e52d-4afe-b207-83f55d16de8a",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "command": "=echo \"{\\\"features\\\": {{ $json.MonsoonIntensity }},{{ $json.TopographyDrainage }},{{ $json.RiverManagement }},{{ $json.Deforestation }},{{ $json.Urbanization }},{{ $json.ClimateChange }},{{ $json.DamsQuality }},{{ $json.Siltation }},{{ $json.AgriculturalPractices }},{{ $json.Encroachments }},{{ $json.IneffectiveDisasterPreparedness }},{{ $json.DrainageSystems }},{{ $json.CoastalVulnerability }},{{ $json.Landslides }},{{ $json.Watersheds }},{{ $json.DeterioratingInfrastructure }},{{ $json.PopulationScore }},{{ $json.WetlandLoss }},{{ $json.InadequatePlanning }},{{ $json.PoliticalFactors }}}\" | python \"C:\\Users\\S Suman\\n8n\\scripts\\predict_joblib.py\"\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        800,
+        992
+      ],
+      "id": "f5ed28d4-4c6c-4c56-b9e4-5e7aa3d28195",
+      "name": "joblib"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "71ddb5bc-ab16-4d14-9ab7-2c06ed016dd3",
+              "leftValue": "={{ $json.tag }}",
+              "rightValue": "Floods",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -480,
+        1008
+      ],
+      "id": "72e61612-1394-46c0-89d5-8fa3727793cc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aa760296-5755-4acf-8a27-201a14c6e4d8",
+              "leftValue": "={{ $json.tag }}",
+              "rightValue": "Rip Current",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -304,
+        1392
+      ],
+      "id": "a94f6589-813e-4998-925e-9cac56bf6861",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a data generator.  \nI will give you a location name (city/district/region) as input.  \nYour task is to output a JSON object only (no text, no explanation) with the following structure and keys:\n\n{\n  \"id\": <random unique integer>,\n  \"MonsoonIntensity\": <1-10>,\n  \"TopographyDrainage\": <1-10>,\n  \"RiverManagement\": <1-10>,\n  \"Deforestation\": <1-10>,\n  \"Urbanization\": <1-10>,\n  \"ClimateChange\": <1-10>,\n  \"DamsQuality\": <1-10>,\n  \"Siltation\": <1-10>,\n  \"AgriculturalPractices\": <1-10>,\n  \"Encroachments\": <1-10>,\n  \"IneffectiveDisasterPreparedness\": <1-10>,\n  \"DrainageSystems\": <1-10>,\n  \"CoastalVulnerability\": <1-10>,\n  \"Landslides\": <1-10>,\n  \"Watersheds\": <1-10>,\n  \"DeterioratingInfrastructure\": <1-10>,\n  \"PopulationScore\": <1-10>,\n  \"WetlandLoss\": <1-10>,\n  \"InadequatePlanning\": <1-10>,\n  \"PoliticalFactors\": <1-10>\n}\n\nRules:\n- Always output valid JSON.  \n- All fields must exist with integer values between 1 and 10.  \n- Change the numbers depending on the given location’s context (e.g., coastal cities → higher CoastalVulnerability, hilly areas → higher Landslides).  \n- The key names must match exactly.  \n\nInput:  {{ $json.location_name }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        992
+      ],
+      "id": "1922a75f-5e86-4551-9625-055ed96ab8f6",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        1152
+      ],
+      "id": "e51e849a-aa7f-4512-bd73-fb470b983078",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "857W71fOzsDC6krf",
+          "name": "joblib"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return JSON.parse($json[\"output\"].replace(/```json|```/g, \"\").trim());\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        992
+      ],
+      "id": "c316d3c7-d852-4938-aa00-c3ea53e79c60",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        1008
+      ],
+      "id": "7ba4f8ba-f03c-463e-8280-2ec6430847b5",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "reports",
+          "mode": "list",
+          "cachedResultName": "reports"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -752,
+        1008
+      ],
+      "id": "3a5c4731-3884-411c-99fb-3b4004b69262",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "3yZJFuLrU7C9qqXB",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tvmpjV7JgkO-k_AbfhcZPdKYpRrcG3jGeyaaSe-bdN8",
+          "mode": "list",
+          "cachedResultName": "fllood",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tvmpjV7JgkO-k_AbfhcZPdKYpRrcG3jGeyaaSe-bdN8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tvmpjV7JgkO-k_AbfhcZPdKYpRrcG3jGeyaaSe-bdN8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MonsoonIntensity",
+              "displayName": "MonsoonIntensity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TopographyDrainage",
+              "displayName": "TopographyDrainage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "RiverManagement",
+              "displayName": "RiverManagement",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Deforestation",
+              "displayName": "Deforestation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Urbanization",
+              "displayName": "Urbanization",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ClimateChange",
+              "displayName": "ClimateChange",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DamsQuality",
+              "displayName": "DamsQuality",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Siltation",
+              "displayName": "Siltation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AgriculturalPractices",
+              "displayName": "AgriculturalPractices",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Encroachments",
+              "displayName": "Encroachments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IneffectiveDisasterPreparedness",
+              "displayName": "IneffectiveDisasterPreparedness",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DrainageSystems",
+              "displayName": "DrainageSystems",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CoastalVulnerability",
+              "displayName": "CoastalVulnerability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Landslides",
+              "displayName": "Landslides",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Watersheds",
+              "displayName": "Watersheds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DeterioratingInfrastructure",
+              "displayName": "DeterioratingInfrastructure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PopulationScore",
+              "displayName": "PopulationScore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WetlandLoss",
+              "displayName": "WetlandLoss",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "InadequatePlanning",
+              "displayName": "InadequatePlanning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PoliticalFactors",
+              "displayName": "PoliticalFactors",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        992
+      ],
+      "id": "7db33a4c-709a-420b-8231-b041ee73a46f",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "15VgHqFGr5HYlWP8",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ripcurrent-api-2-1.onrender.com/predict",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        512,
+        1376
+      ],
+      "id": "000c2b72-0714-4c50-a012-0c745f06524c",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.image_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        1376
+      ],
+      "id": "242d0267-072b-45b5-99b4-e6ab56e3c1e9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -336,
+        288
+      ],
+      "id": "561d513f-1fec-44e0-ac61-91ea1eb8bbe8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        320,
+        448
+      ],
+      "id": "b6f3ad28-fabc-4195-99dd-8f5b7761db98",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WhEXs0ybMYPkLUUb",
+          "name": "scrapping"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "vravilla3@gitam.in",
+        "subject": "this is based on seveierty  of the model",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1536,
+        272
+      ],
+      "id": "4b239ab1-e1bf-4ca7-8fe1-6b50a2c31b54",
+      "name": "Send a message",
+      "webhookId": "546a13fe-936f-4ab0-a3c0-93518486f420",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wSZDS0iOVZ8Rnwa6",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "merged",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        672,
+        272
+      ],
+      "id": "98d02625-88bc-41b7-b770-1b52ea31357a",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are given an array of JSON objects. Each object contains:\n\n- \"location\"\n- \"category\"\n- \"precaution\"\n\nThese are the outputs from the aggregate node. Your task is to convert them into a human-readable, numbered list message suitable for an email.\n\nRules:\n\n1. Number each entry sequentially (1., 2., 3., …).\n2. Extract \"location\" from each object and display as: Location: {{ $json.hazards[0].location }}\n   - If location is missing or null, use \"Unknown Location\".\n3. Extract \"category\" from each object and display as: Category:{{ $json.hazards[0].category }}\n   - If category is missing or null, use \"Not Specified\".\n4. Extract \"precaution\" from each object and display under a separate section labeled \"Precaution:\", with each precaution on a new line starting with \"- \".\n   - If precaution is missing or null, write \"- None specified.\"\n5. Separate each entry with a blank line.\n6. Return **only the formatted text**, do not include any explanations, JSON formatting, or extra content.\n\nInput: {{ $json.hazards }}\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1088,
+        272
+      ],
+      "id": "2cd2ac40-a0f1-43ce-82ac-dc531a8898e7",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        448
+      ],
+      "id": "f39134dc-a385-400d-bbca-a9cb0d6f6a0d",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "5DoUS4RFs5YkEIIh",
+          "name": "alerts"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function Node to parse all merged outputs into proper JSON array\nreturn [\n  {\n    json: {\n      hazards: $json.merged.map(item => {\n        // Remove ```json\\n and ``` from the string\n        let cleanOutput = item.output.replace(/```json\\s*/, '').replace(/```/g, '');\n        return JSON.parse(cleanOutput);\n      })\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        272
+      ],
+      "id": "e20d5fbe-3d23-4df6-8a2f-ae771d861644",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n    let pred = {};\n    try {\n        // parse stdout string into JSON\n        pred = JSON.parse($input.first().json.stdout);\n    } catch (e) {\n        pred = { prediction: [0] };\n    }\n\n    let value = Array.isArray(pred.prediction) && pred.prediction.length > 0 ? pred.prediction[0] : 0;\n    let hazard_status = value > 0.5 ? 'Yes' : 'No';\n\n    return { json: { hazard_status } };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        992
+      ],
+      "id": "c7315c95-52fd-4fb3-8b9e-8671fc8d26f1",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "reports",
+          "mode": "list",
+          "cachedResultName": "reports"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "hazard_status": "={{ $json.hazard_status }}",
+            "id": "={{ $('Select rows from a table').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image_name",
+              "displayName": "image_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tag",
+              "displayName": "tag",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "latitude",
+              "displayName": "latitude",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "longitude",
+              "displayName": "longitude",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "location_name",
+              "displayName": "location_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "submission_date",
+              "displayName": "submission_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "hazard_status",
+              "displayName": "hazard_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1216,
+        992
+      ],
+      "id": "dc7cda55-403a-4154-b0a2-17432f47f4b8",
+      "name": "Insert or update rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "3yZJFuLrU7C9qqXB",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Replace \"HTTP Request1\" with the exact name of your previous node\nreturn $node[\"HTTP Request1\"].json.detections.map(d => {\n    const confidence = d.confidence ?? 0;\n    const hazard_status = confidence > 0.2 ? 'Yes' : 'No';\n\n    return {\n        json: {\n            alert_type: $node[\"HTTP Request1\"].json.alert_type || \"Unknown\",\n            class: d.class,\n            confidence,\n            hazard_status\n        }\n    };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        1376
+      ],
+      "id": "a8af829e-f800-46d0-b871-1499ef9fffb1",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "reports",
+          "mode": "list",
+          "cachedResultName": "reports"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "hazard_status": "={{ $json.hazard_status }}",
+            "id": "={{ $('If1').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "image_name",
+              "displayName": "image_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "tag",
+              "displayName": "tag",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "latitude",
+              "displayName": "latitude",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "longitude",
+              "displayName": "longitude",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "location_name",
+              "displayName": "location_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "submission_date",
+              "displayName": "submission_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false,
+              "removed": true
+            },
+            {
+              "id": "hazard_status",
+              "displayName": "hazard_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        928,
+        1376
+      ],
+      "id": "1a03db03-b97d-4dbe-b0ba-855b85879e7f",
+      "name": "Insert or update rows in a table1",
+      "credentials": {
+        "postgres": {
+          "id": "3yZJFuLrU7C9qqXB",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are given JSON outputs from two hazard detection models: Floods and Rip Currents.  \n\nExample input:\n\n[\n  {\n    \"Flood\": [\n      {\n        \"latitude\": \"{{ $('Insert or update rows in a table').first().json.latitude || '0' }}\",\n        \"longitude\": \"{{ $('Insert or update rows in a table').first().json.longitude || '0' }}\",\n        \"location_name\": \"{{ $('Insert or update rows in a table').first().json.location_name || 'Unknown' }}\",\n        \"prediction\": {{ parseFloat(($('joblib').first().json.stdout || \"0\").toString().trim().match(/[\\d.]+/)?.[0] || 0) }},\n\n,\n        \"hazard_status\": \"{{ $('Insert or update rows in a table').first().json.hazard_status || 'No' }}\"\n      }\n    ],\n    \"Rip current\": [\n      {\n        \"latitude\": \"{{ $('Insert or update rows in a table1').first().json.latitude || '0' }}\",\n        \"longitude\": \"{{ $('Insert or update rows in a table1').first().json.longitude || '0' }}\",\n        \"location_name\": \"{{ $('Insert or update rows in a table1').first().json.location_name || 'Unknown' }}\",\n        \"image_url\": \"{{ $('Insert or update rows in a table1').first().json.image_url || 'https://example.com/rip_current_image.jpg' }}\",\n        \"confidence\":{{ Number($('Code in JavaScript3').first().json.confidence ?? 0) }}\n\n,\n        \"hazard_status\": \"{{ $('Insert or update rows in a table1').first().json.hazard_status || 'No' }}\"\n      }\n    ]\n  }\n]\n\nInstructions:\n\n1. Write a **plain-text email** that is fully readable and understandable by a normal user.  \n2. Include a friendly greeting and closing (e.g., \"Dear User\" and \"Sincerely, The Hazard Detection System\").  \n3. Provide a summary of the total number of Floods and Rip Currents detected.  \n4. For each Flood alert, present details clearly with **one feature per line**, for example:\n\n   Flood Alert 1:  \n   Location: Visakhapatnam  \n   Latitude: 17.782430991378288  \n   Longitude: 83.38512154384739  \n   Prediction: 0.6187  \n   Hazard Status: Yes  \n   Google Maps: https://www.google.com/maps?q=17.782430991378288,83.38512154384739  \n\n5. For each Rip Current alert, also show **one feature per line**, for example:\n\n   Rip Current Alert 1:  \n   Location: Goa  \n   Latitude: 15.5470  \n   Longitude: 73.7480  \n   Confidence: 0.6173  \n   Hazard Status: Yes  \n   Image: https://example.com/rip_current_image.jpg  \n\n6. Leave a blank line between alerts for readability.  \n7. Ensure the email reads like a natural report a human can understand, avoiding technical JSON formatting.  \n8. Output only the **plain-text email**.  \n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        2080,
+        992
+      ],
+      "id": "422c86de-fe15-4651-8fc8-8930c001843c",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        1136
+      ],
+      "id": "d54cd022-830f-47da-a5dd-7acac83e486e",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "fMBavp0vt6zhtxmK",
+          "name": "alert_msg"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1632,
+        1152
+      ],
+      "id": "b3479c0c-33d9-4841-bca5-daff0ab06941",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "sendTo": "charanrvs9@gmail.com",
+        "subject": "predicted message",
+        "emailType": "text",
+        "message": "=this is the message\n {{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2432,
+        992
+      ],
+      "id": "5e4275a3-bbbd-4f6a-9404-afcc72db1c43",
+      "name": "Send a message1",
+      "webhookId": "369280bd-cec6-4bf6-86f1-80c0321c696c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wSZDS0iOVZ8Rnwa6",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "facebook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "twitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "instagram": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "facebook": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "twitter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "joblib": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "joblib",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert or update rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert or update rows in a table1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d21f5024-ea5b-4a42-b332-ee8983bbb194",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5b38913da7608ab0ff69ac610e64e5971bf5b406254d699f367dc12441302402"
+  },
+  "id": "s2NDYFdU7XSsTKeQ",
+  "tags": [
+    {
+      "updatedAt": "2025-09-16T16:57:24.821Z",
+      "createdAt": "2025-09-16T16:57:24.821Z",
+      "id": "bSV9t6xbgbVfyo6P",
+      "name": "Social Media Monitoring"
+    }
+  ]
+}
