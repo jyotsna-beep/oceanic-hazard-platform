@@ -7,6 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 app = FastAPI()
 
@@ -27,11 +30,22 @@ if not os.path.exists(UPLOAD_DIR):
 def get_db_connection():
     """Establishes a connection to the PostgreSQL database."""
     try:
+        db_host = os.getenv("DB_HOST")
+        db_name = os.getenv("DB_NAME")
+        db_user = os.getenv("DB_USER")
+        db_password = os.getenv("DB_PASSWORD")
+
+        if not all([db_host, db_name, db_user, db_password]):
+            raise HTTPException(
+                status_code=500,
+                detail="Database configuration is incomplete. Check the .env file.",
+            )
+
         conn = psycopg2.connect(
-            host="localhost",
-            database="oceanic_hazards",
-            user="postgres",
-            password="vishu@20052",
+            host=db_host,
+            database=db_name,
+            user=db_user,
+            password=db_password,
             cursor_factory=RealDictCursor  # Returns dicts instead of tuples
         )
         return conn
