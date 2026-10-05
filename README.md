@@ -1,4 +1,4 @@
-# 🌊 Oceanic Hazard Intelligence Platform
+# 🌊 Oceanic Hazard Intelligence Platform!
 ### AI-Powered Disaster Monitoring & Early Warning System
 
 An intelligent full-stack platform designed to **detect, classify, and disseminate oceanic hazard alerts in real time** using machine learning, data fusion, and automated communication pipelines.
